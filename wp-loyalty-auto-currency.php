@@ -8,6 +8,7 @@
  * Slug: wp-loyalty-auto-currency
  * Text Domain: wp-loyalty-auto-currency
  * Domain Path: /i18n/languages/
+ * Requires Plugins: wp-loyalty-rules
  * Requires at least: 4.9.0
  * WC requires at least: 6.5
  * WC tested up to: 8.0
