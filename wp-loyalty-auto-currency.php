@@ -8,6 +8,7 @@
  * Slug: wp-loyalty-auto-currency
  * Text Domain: wp-loyalty-auto-currency
  * Domain Path: /i18n/languages/
+ * Requires Plugins: wp-loyalty-rules
  * Requires at least: 4.9.0
  * WC requires at least: 6.5
  * WC tested up to: 8.0
@@ -15,7 +16,7 @@
  * Author URI: https://wployalty.net/
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * WPLoyalty: 1.2.0
+ * WPLoyalty: 1.2.11
  * WPLoyalty Page Link: wp-loyalty-auto-currency
  */
 defined('ABSPATH') or die;

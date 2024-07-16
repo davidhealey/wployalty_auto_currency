@@ -446,7 +446,7 @@ class Main extends Base {
         return apply_filters( 'wlac_after_convert_amount', $amount, $modified_amount, $with_symbol, $current_currency );
     }
 
-    static function handleRewardShortCodes( $reward_list, $is_guest_user ) {
+    static function handleRewardShortCodes( $reward_list ) {
         foreach ( $reward_list as $reward ) {
             if ( $reward->discount_type == 'points_conversion' ) {
                 $default_currency = self::getDefaultCurrency();

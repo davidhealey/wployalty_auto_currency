@@ -47,6 +47,6 @@ class Router
         add_filter('wlr_custom_price_convert', 'Wlac\App\Controllers\Site\Main::convertDefaultToCurrentAmount', 10, 4);
         add_filter('wlr_custom_display_currency',  'Wlac\App\Controllers\Site\Main::getDisplayCurrency', 10);
         add_filter('wlr_page_user_reward_list',  'Wlac\App\Controllers\Site\Main::handleActionShortCodes', 10);
-        add_filter('wlr_page_reward_list', 'Wlac\App\Controllers\Site\Main::handleRewardShortCodes', 10, 2);
+        add_filter('wlr_page_reward_list', 'Wlac\App\Controllers\Site\Main::handleRewardShortCodes', 10);
     }
 }
