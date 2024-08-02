@@ -29,7 +29,7 @@ class Main extends Base {
         if ( ! Woocommerce::hasAdminPrivilege() ) {
             return;
         }
-        $page = ( new \Wlac\App\Helpers\Input() )->get( 'page', null );
+        $page = Input::get( 'page', null );
         if ( $page != WLAC_PLUGIN_SLUG ) {
             return;
         }
@@ -360,17 +360,17 @@ class Main extends Base {
 
     public static function saveSettings() {
         $response   = array();
-        $input      = new Input();
-        $wlac_nonce = (string) $input->get( 'wlac_nonce' );
+        $wlac_nonce = (string)Input::get('wlac_nonce');
+
         if ( ! Woocommerce::hasAdminPrivilege() || ! Woocommerce::verify_nonce( $wlac_nonce, 'wlac-setting-nonce' ) ) {
             $response['error']   = true;
             $response['message'] = esc_html__( 'Settings not saved!', 'wp-loyalty-auto-currency' );
             wp_send_json( $response );
         }
-        $key = (string) $input->get( 'option_key' );
+        $key = (string) Input::get( 'option_key' );
         $key = Woocommerce::validateInputAlpha( $key );
         if ( ! empty( $key ) ) {
-            $enable_conversion_in_page = $input->get( 'enable_conversion_in_page' );
+            $enable_conversion_in_page = Input::get( 'enable_conversion_in_page' );
             if ( ! in_array( $enable_conversion_in_page, array( 'yes', 'no' ) ) ) {
                 $response['error']       = true;
                 $response['field_error'] = array(
