@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) or die;
 
 use Wlac\App\Controllers\Base;
 use Wlac\App\Helpers\Input;
-use Wlac\App\Helpers\Template;
+use Wlac\App\Helpers\Util;
 use Wlac\App\Helpers\Woocommerce;
 
 class Main extends Base {
@@ -29,7 +29,7 @@ class Main extends Base {
         if ( ! Woocommerce::hasAdminPrivilege() ) {
             return;
         }
-        $page = ( new \Wlac\App\Helpers\Input() )->post_get( 'page', null );
+        $page = Input::get( 'page', null );
         if ( $page != WLAC_PLUGIN_SLUG ) {
             return;
         }
@@ -75,14 +75,13 @@ class Main extends Base {
         if ( ! isset( $_GET['page'] ) || ( $_GET['page'] != WLAC_PLUGIN_SLUG ) ) {
             wp_die( __( 'Page query params missing...', 'wp-loyalty-auto-currency' ) );
         }
-        $template         = new Template();
         $path             = WLAC_PLUGIN_PATH . 'App/Views/main.php';
         $main_page_params = array(
             'options'            => get_option( 'wlac_settings', array() ),
             'app_url'            => admin_url( 'admin.php?' . http_build_query( array( 'page' => WLR_PLUGIN_SLUG ) ) ) . '#/apps',
             'wlac_setting_nonce' => Woocommerce::create_nonce( 'wlac-setting-nonce' ),
         );
-        $template->setData( $path, $main_page_params )->display();
+        Util::renderTemplate($path,$main_page_params);
     }
 
     static function getDefaultProductPrice( $productPrice, $product, $item, $is_redeem, $orderCurrency ) {
@@ -361,17 +360,17 @@ class Main extends Base {
 
     public static function saveSettings() {
         $response   = array();
-        $input      = new Input();
-        $wlac_nonce = (string) $input->post( 'wlac_nonce' );
+        $wlac_nonce = (string)Input::get('wlac_nonce');
+
         if ( ! Woocommerce::hasAdminPrivilege() || ! Woocommerce::verify_nonce( $wlac_nonce, 'wlac-setting-nonce' ) ) {
             $response['error']   = true;
             $response['message'] = esc_html__( 'Settings not saved!', 'wp-loyalty-auto-currency' );
             wp_send_json( $response );
         }
-        $key = (string) $input->post( 'option_key' );
+        $key = (string) Input::get( 'option_key' );
         $key = Woocommerce::validateInputAlpha( $key );
         if ( ! empty( $key ) ) {
-            $enable_conversion_in_page = $input->post_get( 'enable_conversion_in_page' );
+            $enable_conversion_in_page = Input::get( 'enable_conversion_in_page' );
             if ( ! in_array( $enable_conversion_in_page, array( 'yes', 'no' ) ) ) {
                 $response['error']       = true;
                 $response['field_error'] = array(
