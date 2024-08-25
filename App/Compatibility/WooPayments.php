@@ -171,9 +171,9 @@ class WooPayments implements Currency
         $currency_details = isset($available_currencies[$code]) ? $available_currencies[$code] : null;
         
         $data = self::$currency_list[$code] = $currency_details->jsonSerialize();
-        $data['num_decimals'] = $currency_details->get_num_decimals();
-        $data['decimal_sep'] = $currency_details->get_decimal_seperator();
-        $data['thousand_sep'] = $currency_details->get_thousand_seperator();
+        $data['num_decimals'] =  wc_get_price_decimals();
+        $data['decimal_sep'] =  wc_get_price_decimal_separator();
+        $data['thousand_sep'] = wc_get_price_thousand_separator();
 
         return $data;        
     }
